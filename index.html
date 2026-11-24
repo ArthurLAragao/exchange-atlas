@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore 31 UNIFOR exchange universities across eight countries. Compare campus life, city guides, living costs, tech salary by experience, and freelance rates.">
+  <meta name="theme-color" content="#f6f5f1">
+  <title>Exchange Atlas · UNIFOR Computer Science</title>
+  <link rel="icon" href="assets/atlas-icon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="data.js" defer></script>
+  <script src="destination-data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#destinations">Skip to destinations</a>
+  <header class="site-head">
+    <div class="frame mast">
+      <a class="brand" href="#" aria-label="Exchange Atlas home"><span class="mark" aria-hidden="true">✳</span> Exchange<span>Atlas</span></a>
+      <nav aria-label="Site sections">
+        <a class="current" href="#destinations">Destinations</a>
+        <a href="#markets">Career markets</a>
+        <button class="nav-button" type="button" data-open="method">Methodology</button>
+      </nav>
+      <button class="button button-outline top-compare" type="button" data-open="compare">Compare <span data-compare-count>0</span></button>
+    </div>
+  </header>
+  <main class="frame">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> UNIFOR / COMPUTER SCIENCE</p>
+        <h1 id="page-title">Where will<br>you study <em>next?</em></h1>
+        <p class="hero-description">Explore eight countries, see the campuses and compare what it costs to study there.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#destinations">Explore destinations</a>
+          <button class="button button-text" type="button" data-open="planner">Plan a budget</button>
+        </div>
+        <dl class="hero-stats">
+          <div><dt id="school-count">31</dt><dd>universities</dd></div>
+          <div><dt id="market-count">8</dt><dd>countries</dd></div>
+          <div><dt id="budget-count">31</dt><dd>living estimates</dd></div>
+        </dl>
+      </div>
+      <figure class="hero-visual">
+        <img src="assets/campus.webp" srcset="assets/campus-small.webp 760w, assets/campus.webp 1280w" sizes="(max-width: 740px) calc(100vw - 32px), 51vw" alt="Illustration of students walking through a university courtyard in autumn" width="1280" height="853" fetchpriority="high">
+        <figcaption>Illustrative campus image</figcaption>
+      </figure>
+    </section>
+
+    <section class="explorer" id="destinations" aria-labelledby="destinations-title">
+      <div class="section-intro">
+        <div><p class="eyebrow">THE DIRECTORY</p><h2 id="destinations-title" tabindex="-1">Explore destinations</h2></div>
+        <div class="segmented" aria-label="Display currency">
+          <button type="button" data-currency="BRL" aria-pressed="true">BRL</button>
+          <button type="button" data-currency="local" aria-pressed="false">Local currency</button>
+        </div>
+      </div>
+      <div id="country-picks" class="country-picks" role="group" aria-label="Quick country filters"></div>
+      <div class="explorer-grid">
+        <aside class="sidebar" aria-label="Filter and ranking controls">
+          <details class="filters" open>
+            <summary><span>Filters</span><span class="summary-count" id="filter-count" hidden>0</span></summary>
+            <form id="filters">
+              <label for="search">University, city or program</label>
+              <input id="search" type="search" placeholder="Search destinations">
+              <label for="market-filter">Country</label>
+              <select id="market-filter"><option value="">All markets</option></select>
+              <label for="setting-filter">City setting</label>
+              <select id="setting-filter"><option value="">Any setting</option><option value="metro">Major metro</option><option value="city">Mid-sized city</option><option value="town">Small city or town</option></select>
+              <label for="english-filter">English-taught computing</label>
+              <select id="english-filter"><option value="">Any availability</option><option value="confirmed">Documented offering</option><option value="limited">Limited or term-dependent</option><option value="unverified">Verify with host</option></select>
+              <label for="cap">Monthly budget ceiling (R$)</label>
+              <input id="cap" type="number" min="0" max="1000000" step="any" placeholder="Any budget">
+              <p class="field-note">Matches the high estimate.</p>
+              <label for="rent-cap">Monthly housing ceiling (R$)</label>
+              <input id="rent-cap" type="number" min="0" max="1000000" step="any" placeholder="Any housing budget">
+              <div class="filter-pair">
+                <div><label for="campus-filter">Campus ≥</label><select id="campus-filter"><option value="">Any</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div>
+                <div><label for="cs-filter">Computing ≥</label><select id="cs-filter"><option value="">Any</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div>
+              </div>
+              <label for="housing-filter">Housing basis</label>
+              <select id="housing-filter"><option value="">All types</option><option value="residence">University / public residence</option><option value="estimate">Exchange budget / private</option><option value="restricted">Restricted or capped rates</option><option value="missing">No monthly estimate</option></select>
+              <label for="pay-filter">Gross tech pay floor (R$/year)</label>
+              <input id="pay-filter" type="number" min="0" max="100000000" step="any" placeholder="Any salary">
+              <label for="experience-filter">Salary level for sorting and filtering</label>
+              <select id="experience-filter"><option value="">Market benchmark</option><option value="junior">Junior</option><option value="mid">Mid-level</option><option value="senior">Senior</option></select>
+              <label class="check"><input type="checkbox" id="complete"> Show only complete budgets</label>
+              <button class="button button-outline reset" type="reset">Reset filters</button>
+            </form>
+          </details>
+          <section class="rank-box" aria-labelledby="rank-box-title">
+            <h3 id="rank-box-title">Ranking weights</h3>
+            <div id="rank-summary"></div>
+            <button class="button button-outline" type="button" data-open="ranking">Customize ranking</button>
+          </section>
+        </aside>
+        <div class="results">
+          <div class="results-bar">
+            <div><strong id="result-count" role="status"></strong><small>Living costs include housing. * Provisional fit.</small></div>
+            <label class="sort-label" for="sort">Sort by
+              <select id="sort">
+                <option value="fit">Overall fit</option>
+                <option value="cost">Lowest living cost</option>
+                <option value="cost-high">Lowest high estimate</option>
+                <option value="housing">Lowest housing cost</option>
+                <option value="campus">Campus score</option>
+                <option value="computing">Computing score</option>
+                <option value="pay">Highest tech pay</option>
+                <option value="name">University name</option>
+              </select>
+            </label>
+          </div>
+          <div class="list-head" aria-hidden="true"><span>UNIVERSITY</span><span>LIVING / MONTH</span><span>TECH PAY / YEAR</span><span></span></div>
+          <ol id="results-list" class="destination-list" aria-label="University results"></ol>
+          <div id="empty" class="empty" hidden><h3>No destinations match</h3><p>Try raising your budget ceiling or clearing a filter.</p><button type="button" class="button button-outline" id="clear-empty">Clear filters</button></div>
+          <button class="button button-outline more" type="button" id="load-more" hidden>Show more destinations</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="markets" id="markets" aria-labelledby="markets-title">
+      <div class="section-intro">
+        <div><p class="eyebrow">CAREER REFERENCE</p><h2 id="markets-title">Tech pay and freelance markets</h2><p class="section-note">Compare gross software pay by experience. Freelance rates are client billing before expenses and taxes.</p></div>
+        <div class="segmented" aria-label="Salary period">
+          <button type="button" data-pay-period="annual" aria-pressed="true">Annual</button>
+          <button type="button" data-pay-period="monthly" aria-pressed="false">Monthly</button>
+        </div>
+      </div>
+      <div class="table-scroll" tabindex="0" aria-label="Salary benchmark table">
+        <table class="career-table"><thead><tr><th scope="col"><button type="button" class="th-sort" data-market-sort="name">Country</button></th><th scope="col">Junior</th><th scope="col"><button type="button" class="th-sort" data-market-sort="pay">Mid-level</button></th><th scope="col">Senior</th><th scope="col">Freelance rate</th><th scope="col">Market guide</th></tr></thead><tbody id="pay-table"></tbody></table>
+      </div>
+    </section>
+    <noscript><p class="empty">Enable JavaScript to browse and compare destinations.</p></noscript>
+  </main>
+  <footer class="footer"><div class="frame footer-inner"><a class="brand" href="#"><span class="mark" aria-hidden="true">✳</span> Exchange<span>Atlas</span></a><p>Independent planner · Evidence reviewed November 2026</p><button class="button button-text" type="button" data-open="method">Methodology</button><a href="https://unifor.br/dri/aluno" target="_blank" rel="noopener">Unifor exchange office</a></div></footer>
+  <aside id="compare-bar" class="compare-bar" aria-label="Selected universities" hidden>
+    <div id="compare-choices"></div><button class="button button-primary" type="button" data-open="compare">Compare selected</button>
+  </aside>
+  <dialog id="dialog" aria-labelledby="dialog-title">
+    <div class="dialog-shell">
+      <header class="dialog-header"><h2 id="dialog-title"></h2><form method="dialog"><button class="close" aria-label="Close dialog">×</button></form></header>
+      <div id="dialog-content"></div>
+    </div>
+  </dialog>
+</body>
+</html>
